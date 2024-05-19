@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('writer', function (Blueprint $table) {
+        Schema::create('writers', function (Blueprint $table) {
             $table->bigIncrements('id')->primary()->autoIncrement()->unique();
             $table->bigInteger('book_id')->unsigned();
             $table->foreign('book_id')->references('id')->on('books');

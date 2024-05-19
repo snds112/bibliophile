@@ -11,14 +11,18 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    protected $table = 'users';
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'username',
         'email',
+        'phone',
+        'adress',
         'password',
     ];
 
@@ -43,5 +47,10 @@ class User extends Authenticatable
 
             'password' => 'hashed',
         ];
+    }
+
+    public function borrows()
+    {
+        return $this->hasMany(Borrow::class);
     }
 }
