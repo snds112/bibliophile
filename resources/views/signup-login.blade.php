@@ -81,7 +81,7 @@
                                 <div class="card-back">
                                     <div class="center-wrap">
                                         <div class="section text-center">
-                                            <h4 class="mb-3 pb-3" style="color: #251605">Sign Up</h4>
+                                            <h4 class="mb-1 pb-1" style="color: #251605">Sign Up</h4>
                                             <form action="/create-user" method="POST" id="signupForm">
                                                 @csrf
                                                 <div class="form-group">
@@ -95,21 +95,22 @@
                                                     <i class="input-icon uil uil-at"></i>
                                                 </div>
                                                 <div class="form-group mt-2">
+                                                    <input type="text" class="form-style" placeholder="Phone"
+                                                        name="phone">
+                                                    <i class="input-icon uil uil-phone"></i>
+                                                </div>
+                                                <div class="form-group mt-2">
+                                                    <input type="text" class="form-style" placeholder="adress"
+                                                        name="adress">
+                                                    <i class="input-icon uil uil-map-marker"></i>
+                                                </div>
+                                                <div class="form-group mt-2">
                                                     <input type="password" class="form-style" placeholder="Password"
                                                         name="password">
                                                     <i class="input-icon uil uil-lock"></i>
                                                 </div>
-                                                <div class="form-group mt-2">
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" value=""
-                                                            id="flexCheckDefault" name="userType">
-                                                        <label class="form-check-label" for="flexCheckDefault">
-                                                            Apply&nbsp;for&nbsp;artist&nbsp;account?
-                                                        </label>
-                                                    </div>
 
-                                                </div>
-                                                <button type="submit" class="btn mt-4" id="signupButton">Sign
+                                                <button type="submit" class="btn mt-1" id="signupButton">Sign
                                                     up</button>
 
                                             </form>
