@@ -12,11 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('books', function (Blueprint $table) {
-            $table->bigIncrements('id')->primary()->autoIncrement()->unique();;
+            $table->bigIncrements('id')->primary()->autoIncrement()->unique();
             $table->string('ISBN', 13)->unique();
             $table->string('title', 300);
             $table->string('year_of_publication', 5);
             $table->string('edition', 45);
+            $table->text('description');
             $table->enum('type', ['Hardcover', 'Paperback', 'Ebook']);
             $table->integer('number_of_copies');
             $table->bigInteger('publisher_id')->unsigned();

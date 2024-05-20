@@ -32,4 +32,9 @@ class Book extends Model
     {
         return $this->belongsToMany(Author::class, 'writers', 'book_id', 'author_id');
     }
+
+    public function genres(): BelongsToMany
+    {
+        return $this->belongsToMany(Genre::class, 'bgs', 'book_id', 'genre_id');
+    }
 }
