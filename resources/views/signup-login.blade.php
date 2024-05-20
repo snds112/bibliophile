@@ -2,8 +2,8 @@
 <html lang="en">
 
 <head>
-    <title>BIBLIOPHILE</title>
-    <link rel="icon" href="{{ asset('/images/logo.jpg') }}">
+    <title>Bibliophile</title>
+    <link rel="icon" href="{{ asset('/images/logo.png') }}">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.9/css/unicons.css">
@@ -41,7 +41,7 @@
             <div class="row full-height justify-content-center">
                 <div class="col-12 text-center align-self-center">
                     <div class="section pb-5 pt-5 pt-sm-2 text-center">
-                        <h6 class="mb-0 pb-3"><span>BIBLIOPHILE</span></h6>
+                        <h6 class="mb-0 pb-3"><span>Bibliophile</span></h6>
                         <input class="custom-checkbox" type="checkbox" id="reg-log" name="reg-log" />
                         <label for="reg-log"></label>
                         <div class="card-3d-wrap mx-auto">
@@ -100,7 +100,7 @@
                                                     <i class="input-icon uil uil-phone"></i>
                                                 </div>
                                                 <div class="form-group mt-2">
-                                                    <input type="text" class="form-style" placeholder="adress"
+                                                    <input type="text" class="form-style" placeholder="Address"
                                                         name="adress">
                                                     <i class="input-icon uil uil-map-marker"></i>
                                                 </div>

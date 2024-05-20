@@ -1,21 +1,27 @@
+* {
+    color: #efe9e6;
+}
+
 .material-symbols-outlined {
     font-size: 20px;
-    color: black;
+    color: #efe9e6;
 
     transition: 0.3s;
 }
 .material-symbols-outlined:hover {
-    color: #74b9ff;
+    color: #896858;
     cursor: pointer;
 }
 body {
-    background-color: #d1c7bd;
+    background-color: #251605;
     min-height: 100vh;
 }
-
+header {
+    color: #efe9e6;
+}
 .search-form {
     position: relative;
-    background-color: #fff;
+    background-color: #efe9e6;
     border-radius: 15px;
     margin-right: 50px;
 }
@@ -46,7 +52,7 @@ body {
 }
 
 #header {
-    background-color: #d1c7bd;
+    background-color: #251605;
     padding: 0px !important;
     /*    margin: 0px !important; */
     /*  min-width: 80vw !important;
@@ -55,7 +61,7 @@ body {
 }
 
 #footer {
-    background-color: #d1c7bd;
+    background-color: #251605;
     padding: 20px;
 }
 
