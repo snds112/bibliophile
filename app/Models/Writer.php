@@ -9,7 +9,10 @@ class Writer extends Model
 {
     use HasFactory;
     protected $table = 'writers';
-    protected $fillable = []; // No fillable attributes since it's a pivot table
+    protected $fillable = [
+        'author_id',
+        'book_id'
+    ]; // No fillable attributes since it's a pivot table
 
     public function book()
     {

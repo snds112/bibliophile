@@ -91,20 +91,20 @@
                         <div class="col-6">
                             <div class="form-group">
 
-                                {{-- <label for="searchPeople">Search Authors:</label>
+                                <label for="searchPeople">Search Authors:</label>
                                 <div class="input-group mb-3">
                                     <input type="text" class="form-control" id="author-name" name="author-name"
-                                        placeholder="Search for genres">
-                                    <button class="btn btn-outline-secondary" type="button" name="add-genre"
-                                        id="add-genre">Add</button>
+                                        placeholder="Search for authors">
+                                    <button class="btn btn-outline-secondary" type="button" name="add-author"
+                                        id="add-author">Add</button>
                                     <button class="btn btn-outline-secondary" type="button"
-                                        name="reset-genre"id="reset-genre">Reset</button>
+                                        name="reset-author"id="reset-author">Reset</button>
 
                                 </div>
-                                <div id="genre-message"></div>
-                                <ul id="selected-genres"></ul>
-                                <input type="hidden" name="genres" id="genres" value="">
- --}}
+                                <div id="author-message"></div>
+                                <ul id="selected-authors"></ul>
+                                <input type="hidden" name="authors" id="authors" value="">
+
                             </div>
                         </div>
                     </div>

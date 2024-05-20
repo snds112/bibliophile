@@ -8,7 +8,7 @@ $(document).ready(function () {
         return name.trim().length >= 3; // Enforce minimum name length
     }
 
-    function addUser(name) {
+    function addGenre(name) {
         // Check if user already exists
         var found = false;
         if (selectedgenres.includes(name)) { found = true; }
@@ -42,13 +42,19 @@ $(document).ready(function () {
                         // name is valid, add genre data (assuming data.genres holds genre objects)
 
 
-                        addUser(data.genres[0].name);
+                        addGenre(data.genres[0].name);
 
                         updateSelectedgenresList(); // Update genre list (optional)
 
                         console.log(JSON.stringify(selectedgenres));
                     } else {
-                        $('#genre-message').text("Genre doesn't exist.");
+                        var html = '';
+
+                        html += "genre doesn't exist. ";
+                        html += '<a href="/add-genre">' + "Add new genre?" + '</a>';
+
+
+                        $('#genre-message').html(html);
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -82,6 +88,96 @@ $(document).ready(function () {
 
         $('#selected-genres').html(html);
     }
+    // Initialize an empty array to store selected author objects
+    var selectedauthors = [];
+
+    // Basic client-side validation (optional)
+    function isValidname(name) {
+        return name.trim().length >= 3; // Enforce minimum name length
+    }
+
+    function addAuthor(name) {
+        // Check if user already exists
+        var found = false;
+        if (selectedauthors.includes(name)) { found = true; }
+
+
+        if (!found) {
+            // name not found, add author
+            selectedauthors.push(name); // Assuming name is the unique identifier
+            $('#author-message').text("author added successfully!");
+            updateSelectedauthorsList(); // Update author list (optional)
+        } else {
+            $('#author-message').text("author already added.");
+        }
+    }
+
+    $('#add-author').on('click', function (e) {
+        e.preventDefault(); // Prevent default form submission
+
+        var name = $('#author-name').val().trim(); // Trim leading/trailing spaces
+
+        if (isValidname(name)) {
+            // Send AJAX request to validate name
+            $.ajax({
+                url: '/search-author', // Replace with your actual route
+                data: { fullname: name },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.valid) {
+                        // name is valid, add author (assuming server response includes author data)
+                        // Assuming name is in author data
+                        // name is valid, add author data (assuming data.authors holds author objects)
+
+
+                        addAuthor(data.authors[0].fullname);
+
+                        updateSelectedauthorsList(); // Update author list (optional)
+
+                        console.log(JSON.stringify(selectedauthors));
+                    } else {
+
+                        var html = '';
+
+                        html += "author doesn't exist. ";
+                        html += '<a href="/add-author">' + "Add new author?" + '</a>';
+
+
+                        $('#author-message').html(html);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    // Handle errors during AJAX request
+                    console.error("Error validating author:", textStatus, errorThrown);
+                    $('#author-message').text("An error occurred. Please try again.");
+                }
+            });
+        } else {
+            $('#author-message').text("author name must be at least 3 characters.");
+        }
+    });
+
+    $('#reset-author').on('click', function (e) {
+        e.preventDefault(); // Prevent default form submission
+
+        selectedauthors = []; // Clear selected authors
+        $('#author-name').val(''); // Clear name input
+        $('#author-message').text(""); // Clear message
+        updateSelectedauthorsList(); // Update author list (optional)
+        console.log(selectedauthors);
+    });
+
+    // Function to update the list of selected authors (optional)
+    function updateSelectedauthorsList() {
+        var html = '';
+        for (var i = 0; i < selectedauthors.length; i++) {
+            var name = selectedauthors[i]; // Assuming name is stored directly in the array
+            html += '<li>' + name + '</li>';
+        }
+
+        $('#selected-authors').html(html);
+    }
+
 
     // Triggering the Save Action (modified)
     $('#store-book').on('click', function (e) {
@@ -92,11 +188,14 @@ $(document).ready(function () {
 
 
         // Convert names to a string (modify if needed)
-        var selectednames = selectedgenres.join(',');
-        console.log(selectednames);
+        var selectedgenrenames = selectedgenres.join(',');
+        console.log(selectedgenrenames);
+        var selectedauthornames = selectedauthors.join(',');
+        console.log(selectedauthornames);
 
         // Set the hidden input value
-        $('#genres').val(selectednames);
+        $('#genres').val(selectedgenrenames);
+        $('#authors').val(selectedauthornames);
 
         // Submit the form
         $('#book-form').submit(); // Replace with your form ID

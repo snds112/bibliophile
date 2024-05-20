@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
-use App\Models\BookGenre;
 use App\Models\User;
 use App\Models\Genre;
+use App\Models\Author;
+use App\Models\Writer;
+use App\Models\BookGenre;
 use App\Models\Publisher;
-use Illuminate\Http\Request;
-use Dotenv\Exception\ValidationException;
 
+use Illuminate\Http\Request;
 use function PHPUnit\Framework\isEmpty;
+use Dotenv\Exception\ValidationException;
 
 class BookController extends Controller
 {
@@ -36,6 +38,8 @@ class BookController extends Controller
 
     public function storebook(Request $request)
     {
+
+
 
         $user = User::find(auth()->user()->id); // get the logged in user
 
@@ -123,7 +127,31 @@ class BookController extends Controller
             }
         }
 
+        $authors = explode(",", $request->input("authors"));
 
+
+        //add the genre links in the bgs table (to link the book to all the authors)
+        if (!empty($authors)) {
+            foreach ($authors as $author) {
+                if ($author) {
+                    //get the author
+                    $author = (Author::Where('fullname', $author)->get()->first())->id;
+                    if (!empty($author)) {
+                        //check whether or not the entry in bgs already exists
+                        $existingEntry = Writer::where('author_id', $author)
+                            ->where('book_id', $book->id)
+                            ->first();
+                        //if it doesnt then enter it
+                        if (!$existingEntry) {
+                            Writer::create([
+                                'book_id' => $book->id,
+                                'author_id' => $author
+                            ]);
+                        }
+                    }
+                }
+            }
+        }
         return redirect('/')->with('success', 'Book Added');
     }
 }
