@@ -16,6 +16,8 @@ class Book extends Model
         'year_of_publication',
         'edition',
         'type',
+        'description',
+        'cover_addr',
         'number_of_copies',
         'publisher_id',
     ];

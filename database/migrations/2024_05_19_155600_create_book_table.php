@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('edition', 45);
             $table->text('description');
             $table->enum('type', ['Hardcover', 'Paperback', 'Ebook']);
+            $table->string('cover_addr', 100);
             $table->integer('number_of_copies');
             $table->bigInteger('publisher_id')->unsigned();
             $table->foreign('publisher_id')->references('id')->on('publishers');

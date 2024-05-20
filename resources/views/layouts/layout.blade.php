@@ -3,7 +3,7 @@
 
 <head>
     <title>Bibliophile</title>
-    <link rel="icon" href="{{ asset('/images/logo.jpg') }}">
+    <link rel="icon" href="{{ asset('/images/logo.png') }}">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.9/css/unicons.css">
@@ -31,7 +31,7 @@
     <script src="https://kit.fontawesome.com/your-fontawesome-kit-code.js" crossorigin="anonymous"></script>
     @yield('styles')
     <link rel="stylesheet" href="{{ asset('/css/layout.css') }}">
-    @yield('scripts')
+
     <script src="{{ asset('/bootstrap/js/jquery-3.7.1.min.js') }}"></script>
 
 
@@ -109,6 +109,15 @@
             </div>
         </div>
     @endif
+    @if (count($errors) > 0)
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     @yield('content')
     <footer class="container-fluid bg-d1c78d text-dark border-top" id="footer">
@@ -127,8 +136,8 @@
             </div>
             <div class="col-md-6">
                 <div class="text-right">
-                    <h5>About Bibliophile</h5> <!-- Title -->
-                    <p class="mb-0" style="font-size: medium;">Bibliophile is a platform designed to
+                    <h5 style="color: #efe9e6">About Bibliophile</h5> <!-- Title -->
+                    <p class="mb-0" style="font-size: medium; color: #efe9e6">Bibliophile is a platform designed to
                         give
                         artists a
                         safe
@@ -139,7 +148,7 @@
         </div>
         <div class="row mt-3">
             <div class="col-md-6 text-center">
-                <p>Contact us at <a href="mailto:admin@Bibliophile.com"
+                <p style="color: #efe9e6">Contact us at <a href="mailto:admin@Bibliophile.com"
                         style="color: #efe9e6; text-decoration: underline;">admin@Bibliophile.com</a>
                     for
                     any
@@ -148,7 +157,7 @@
             <div class="col-md-6">
                 <div class="row justify-content-center py-3">
                     <div class="col-md-6 text-center">
-                        <p class="mb-0">&copy; 2024 Bibliophile</p> <!-- Copyright notice -->
+                        <p class="mb-0" style="color: #efe9e6">&copy; 2024 Bibliophile</p> <!-- Copyright notice -->
                     </div>
                 </div>
             </div>
@@ -157,7 +166,7 @@
     </footer>
 
 
-
+    @yield('scripts')
 </body>
 
 </html>
