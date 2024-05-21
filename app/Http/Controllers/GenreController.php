@@ -24,4 +24,32 @@ class GenreController extends Controller
             'genres' => $searchResults,
         ]);
     }
+
+    public function storegenre(Request $request)
+    {
+
+        $user = User::find(auth()->user()->id); // get the logged in user
+
+
+
+        $validatedData = $request->validate([
+            'name' => 'required|string|unique:genres|max:30',
+            'description' => 'required|string',
+
+        ]);
+        $validatedData['description'] = strip_tags($validatedData['description']);
+
+
+
+
+        $genre = Genre::create([
+            'name' => $validatedData['name'],
+            'description' => $validatedData['description'],
+
+        ]);
+
+
+
+        return redirect('/add-genre')->with('success', 'Genre Added');
+    }
 }

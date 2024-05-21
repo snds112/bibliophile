@@ -30,5 +30,15 @@ Route::get('/add-book', function () {
     return view('add-book');
 });
 Route::get('/search-genre', [GenreController::class, 'searchGenres']);
+Route::get('/add-author', function () {
+
+    return view('add-author');
+});
+Route::post('/store-author', [AuthorController::class, 'storeauthor']);
+Route::get('/add-genre', function () {
+
+    return view('add-genre');
+});
+Route::post('/store-genre', [GenreController::class, 'storegenre']);
 Route::get('/search-author', [AuthorController::class, 'searchAuthors']);
 Route::post('/login', [UserController::class, 'login']);
