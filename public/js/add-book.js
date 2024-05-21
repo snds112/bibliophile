@@ -51,7 +51,7 @@ $(document).ready(function () {
                         var html = '';
 
                         html += "genre doesn't exist. ";
-                        html += '<a href="/add-genre" target="blank">' + "Add new genre?" + '</a>';
+                        html += '<a href="/add-genre" >' + "Add new genre?" + '</a>';
 
 
                         $('#genre-message').html(html);
@@ -140,7 +140,7 @@ $(document).ready(function () {
                         var html = '';
 
                         html += "author doesn't exist. ";
-                        html += '<a href="/add-author" target="blank">' + "Add new author?" + '</a>';
+                        html += '<a href="/add-author" >' + "Add new author?" + '</a>';
 
 
                         $('#author-message').html(html);

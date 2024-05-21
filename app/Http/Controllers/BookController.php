@@ -3,13 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
+use App\Models\Copy;
 use App\Models\User;
 use App\Models\Genre;
 use App\Models\Author;
 use App\Models\Writer;
 use App\Models\BookGenre;
-use App\Models\Publisher;
 
+use App\Models\Publisher;
 use Illuminate\Http\Request;
 use function PHPUnit\Framework\isEmpty;
 use Dotenv\Exception\ValidationException;
@@ -100,6 +101,10 @@ class BookController extends Controller
 
         ]);
 
+
+        for ($i = 0; $i < $validatedData['number_of_copies']; $i++) {
+            $copy = Copy::create($book->id);
+        }
 
         $genres = explode(",", $request->input("genres"));
 
