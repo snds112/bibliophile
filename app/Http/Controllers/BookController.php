@@ -18,7 +18,20 @@ use Dotenv\Exception\ValidationException;
 class BookController extends Controller
 {
 
+    public function showsinglebook($book_id)
+    {
 
+        //get the book via the bookId entered in the url 
+        $book = Book::Find($book_id);
+
+        // check if book exists
+        if (!$book) {
+            return abort(404);
+        }
+
+        // return the view with compact data
+        return view('book-card', compact('book'));
+    }
     private function validateImageUpload($uploadedFile)
     {
         //accepted extentions
@@ -103,7 +116,9 @@ class BookController extends Controller
 
 
         for ($i = 0; $i < $validatedData['number_of_copies']; $i++) {
-            $copy = Copy::create($book->id);
+            $copy = Copy::create([
+                'book_id' => $book->id
+            ]);
         }
 
         $genres = explode(",", $request->input("genres"));

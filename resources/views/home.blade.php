@@ -173,7 +173,7 @@
                     <div class="col"
                         style="justify-content: center;text-align: center; min-height: 100vh; overflow: auto;">
                         <h1 class="title"
-                            style="font-family: serif; font-weight: bold; font-size: 3vw;height: fit-content;padding: 5vw;">
+                            style="font-family: serif; font-weight: bold; font-size: 3vw;height: fit-content;padding: 5vw;color: #efe9e6;">
                             Search
                             for genres, book titles, authors or publishers to fill your feed!</h1>
                     </div>

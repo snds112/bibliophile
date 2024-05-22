@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    public function logout(Request $request)
+    {
+        auth()->logout(); // logs out the logged in user
+        return redirect('/')->with('success', 'Logged out !');
+    }
     public function login(Request $request)
     { // validate the log in data
         $request->validate([

@@ -61,37 +61,50 @@
                 <input class="search-input form-control border-0 py-2" type="search" placeholder="Search"
                     aria-label="Search" name="searchTerm">
             </form>
-            <a href="/home">
+            <a href="/">
                 <span class="material-symbols-outlined me-3 fs-2">home</span>
             </a>
-            <a href="/profile/{{ auth()->user()->username }}">
-                <span class="material-symbols-outlined me-4 fs-2">account_circle</span>
-            </a>
+
 
             @php
-                $user = App\Models\User::find(auth()->user()->id);
+                if (auth()->user()) {
+                    $user = App\Models\User::find(auth()->user()->id);
+                }
             @endphp
-            @if ($user->artist_status)
-                <a href="/message/{{ auth()->user()->id }}">
-                    <span class="material-symbols-outlined me-4 fs-2">chat</span>
+            @if (isset($user))
+                <a href="/profile/{{ auth()->user()->username }}">
+                    <span class="material-symbols-outlined me-4 fs-2">account_circle</span>
                 </a>
-                <a href="/create-post">
-                    <span class="material-symbols-outlined me-4 fs-2">add</span>
-                </a>
-            @endif
+                @if ($user->artist_status)
+                    <a href="/message/{{ auth()->user()->id }}">
+                        <span class="material-symbols-outlined me-4 fs-2">chat</span>
+                    </a>
+                    <a href="/create-post">
+                        <span class="material-symbols-outlined me-4 fs-2">add</span>
+                    </a>
+                @endif
 
-            <a href="/logout">
-                <span class="material-symbols-outlined me-4 fs-2">
-                    logout
-                </span>
-            </a>
-            @if (auth()->user()->type == 'admin')
-                <a href="/admin">
-                    <span class="material-symbols-outlined fs-2">
-                        admin_panel_settings
+                <a href="/logout">
+                    <span class="material-symbols-outlined me-4 fs-2">
+                        logout
+                    </span>
+                </a>
+                @if (auth()->user()->admin)
+                    <a href="/admin">
+                        <span class="material-symbols-outlined me-4 fs-2">
+                            admin_panel_settings
+                        </span>
+                    </a>
+                @endif
+            @else
+                <a href="/signup-login">
+                    <span class="material-symbols-outlined me-4 fs-2">
+                        login
                     </span>
                 </a>
             @endif
+
+
         </div>
     </header>
     @if (session()->has('success'))

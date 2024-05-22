@@ -63,6 +63,7 @@
                         <label for="publisher">Name Of The Publisher:</label>
                         <input type="text" class="form-control" id="publisher" name="publisher">
                     </div>
+                    <a href="/add-publisher">Add Publisher?</a>
 
                     <div class="form-group my-2" id="image-upload">
                         <label for="imageInput">Select Cover Image:</label>

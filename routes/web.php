@@ -5,6 +5,8 @@ use App\Http\Controllers\BookController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\PublisherController;
+use App\Models\Book;
 
 /* Route::get('/', function () {
     return view('signup-login');
@@ -35,10 +37,18 @@ Route::get('/add-author', function () {
     return view('add-author');
 });
 Route::post('/store-author', [AuthorController::class, 'storeauthor']);
+Route::get('/add-publisher', function () {
+
+    return view('add-publisher');
+});
+Route::post('/store-publisher', [PublisherController::class, 'storepublisher']);
 Route::get('/add-genre', function () {
 
     return view('add-genre');
 });
+
+route::get('/book/{book_id}', [BookController::class, 'showsinglebook'])->name('book-card');
 Route::post('/store-genre', [GenreController::class, 'storegenre']);
 Route::get('/search-author', [AuthorController::class, 'searchAuthors']);
+Route::get('/logout', [UserController::class, 'logout']);
 Route::post('/login', [UserController::class, 'login']);
