@@ -7,16 +7,50 @@ use App\Models\Copy;
 use App\Models\User;
 use App\Models\Genre;
 use App\Models\Author;
+use App\Models\Borrow;
 use App\Models\Writer;
-use App\Models\BookGenre;
 
+use App\Models\BookGenre;
 use App\Models\Publisher;
 use Illuminate\Http\Request;
 use function PHPUnit\Framework\isEmpty;
+use function PHPUnit\Framework\isNull;
+
 use Dotenv\Exception\ValidationException;
 
 class BookController extends Controller
 {
+
+    public function checkborrow($user_id, $book_id)
+    {
+        $user = User::Find($user_id);
+        $book = Book::Find($book_id);
+
+        $copies = $book->copies()->get();
+        $availableCopies = [];
+        foreach ($copies as $copy) {
+            // Check if the copy has no borrows (never borrowed)
+            if ($copy->borrow->isEmpty()) {
+                $availableCopies[] = $copy;
+            } else {
+                // Explicitly load borrows if there are any
+                $copy->load('borrow');
+
+                // Check if all borrows have a non-null returned_at (all returned)
+                if ($copy->borrow->every(function ($borrow) {
+                    return !is_null($borrow->returned_at);
+                })) {
+                    $availableCopies[] = $copy;
+                }
+            }
+        }
+
+        if (count($availableCopies)) {
+            return back()->with('success', 'There are currently ' . count($availableCopies) . " copies available, You're welcome to come our location to pick one up :)");
+        } else {
+            return back()->with('failure', 'No available copies :(');
+        }
+    }
 
     public function showsinglebook($book_id)
     {
@@ -71,8 +105,13 @@ class BookController extends Controller
             'publisher' => 'required|string|exists:publishers,name'
         ]);
 
-        $uploadedMedia  = $request->file('image');
-        $this->validateImageUpload($uploadedMedia);
+        try {
+            $uploadedMedia = $request->file('image');
+
+            $this->validateImageUpload($uploadedMedia);
+        } catch (ValidationException $e) {
+            return back()->with('failure', $e->getMessage())->withInput($request->input());
+        }
 
         //validate the caption and strip tags to prevent harmful scripts
 

@@ -56,15 +56,20 @@ class AuthorController extends Controller
 
 
 
-    
+
         $validatedData = $request->validate([
             'fullname' => 'required|string|unique:authors',
             'alias' => 'required|string|max:255',
 
         ]);
 
-        $uploadedMedia  = $request->file('image');
-        $this->validateImageUpload($uploadedMedia);
+        try {
+            $uploadedMedia = $request->file('image');
+
+            $this->validateImageUpload($uploadedMedia);
+        } catch (ValidationException $e) {
+            return back()->with('failure', $e->getMessage())->withInput($request->input());
+        }
 
 
 

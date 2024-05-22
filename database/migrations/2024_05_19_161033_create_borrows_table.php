@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->bigInteger('copy_id')->unsigned();
             $table->foreign('copy_id')->references('id')->on('copies');
-            $table->dateTime('pickedup_at');
+            $table->dateTime('pickedup_at')->nullable();
             $table->dateTime('returned_at')->nullable();
             $table->timestamps();
         });

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 
 class Book extends Model
 {
@@ -26,6 +27,10 @@ class Book extends Model
 
     public $timestamps = true;
 
+    public function copies()
+    {
+        return $this->hasMany(Copy::class);
+    }
     public function publisher()
     {
         return $this->belongsTo(Publisher::class);
@@ -33,6 +38,10 @@ class Book extends Model
     public function authors(): BelongsToMany
     {
         return $this->belongsToMany(Author::class, 'writers', 'book_id', 'author_id');
+    }
+    public function borrows(): HasManyThrough
+    {
+        return $this->hasManyThrough(Borrow::class, Copy::class);
     }
 
     public function genres(): BelongsToMany
