@@ -8,6 +8,21 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+
+    public function loadaccount($username)
+    {
+        $user = User::Where('username', $username)->get()->first();
+
+        if (!($user == User::find(auth()->user()->id) || $user->admin)) {
+
+            $message = "You cannot view another user's information!";
+            return redirect('/')->with('failure', $message);
+        }
+        $activeBorrows = $user->borrows()->get();
+        
+
+        return view('view-account', compact('user', 'activeBorrows'));
+    }
     public function logout(Request $request)
     {
         auth()->logout(); // logs out the logged in user

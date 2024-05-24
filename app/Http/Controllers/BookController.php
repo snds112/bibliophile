@@ -46,7 +46,11 @@ class BookController extends Controller
         }
 
         if (count($availableCopies)) {
-            return back()->with('success', 'There are currently ' . count($availableCopies) . " copies available, You're welcome to come our location to pick one up :)");
+            if (count($availableCopies) > 1)
+                $message = 'There are currently ' . count($availableCopies) . " copies available, You're welcome to come our location to pick one up :)";
+            else
+                $message = 'There is currently ' . count($availableCopies) . " copy available, You're welcome to come our location to pick it up :)";
+            return back()->with('success', $message);
         } else {
             return back()->with('failure', 'No available copies :(');
         }

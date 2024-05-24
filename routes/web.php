@@ -51,3 +51,4 @@ Route::post('/store-genre', [GenreController::class, 'storegenre']);
 Route::get('/search-author', [AuthorController::class, 'searchAuthors']);
 Route::get('/logout', [UserController::class, 'logout']);
 Route::post('/login', [UserController::class, 'login']);
+route::get('/account/{username}', [userController::class, 'loadaccount'])->middleware('auth')->name('account');

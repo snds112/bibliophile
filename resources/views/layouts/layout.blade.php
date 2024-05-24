@@ -72,7 +72,7 @@
                 }
             @endphp
             @if (isset($user))
-                <a href="/profile/{{ auth()->user()->username }}">
+                <a href="/account/{{ auth()->user()->username }}">
                     <span class="material-symbols-outlined me-4 fs-2">account_circle</span>
                 </a>
                 @if ($user->artist_status)

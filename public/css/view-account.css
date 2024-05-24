@@ -1,0 +1,69 @@
+.user-info-container-col {
+    background-color: #efe9e6;
+    width: 100%;
+    color: black;
+}
+.user-borrow-info-col {
+    background-color: #efe9e6;
+    min-width: 1rem;
+    min-height: 1rem;
+    color: black;
+}
+.user-info-container {
+    width: 100%;
+}
+.user-info-label {
+    font-size: 1.5rem;
+}
+.user-info-value {
+    width: 100%;
+    font-size: 1.2rem;
+    text-wrap: wrap;
+    text-overflow: ellipsis;
+}
+.user-info-title {
+    font-size: 1.8rem;
+    text-align: center;
+}
+.btn-modify {
+    font-size: 1.2rem;
+    color: #251605;
+    border-color: #251605;
+    background-color: #cfbdb4;
+}
+.btn {
+    color: #251605;
+    border-color: #251605;
+    background-color: #cfbdb4;
+}
+
+.btn:hover {
+    color: #251605;
+    background-color: #8968588f;
+    border-color: #251605;
+    box-shadow: none;
+}
+.btn:focus {
+    box-shadow: none;
+}
+.user-info-actions {
+    display: flex;
+    justify-content: center;
+}
+.bc {
+    margin: 0.25rem;
+    max-height: inherit;
+    max-width: inherit;
+    object-fit: contain;
+}
+.borrow-item {
+    border-bottom: 1px solid #000;
+    padding: 0.5rem;
+}
+.user-borrow-info-col a {
+    text-decoration: none;
+}
+.book-cover-col {
+    object-fit: contain;
+    border-right: 1px solid #000;
+}

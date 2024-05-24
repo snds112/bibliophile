@@ -49,11 +49,7 @@ audio {
     max-height: 100vh;
     object-fit: contain;
 }
-.btn-outline-commment {
-    color: white;
-    border-color: #d1c7bd;
-    background-color: #d1c7bd;
-}
+
 .btn {
     color: #fff !important;
 }
@@ -63,9 +59,7 @@ audio {
     color: #d1c7bd !important;
 }
 
-.btn-outline-commment:focus {
-    box-shadow: none;
-}
+
 .book-side {
     min-height: 80vh;
 }
