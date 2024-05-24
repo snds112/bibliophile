@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('borrows', function (Blueprint $table) {
             $table->bigIncrements('id')->primary()->autoIncrement()->unique();
             $table->bigInteger('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');;
             $table->bigInteger('copy_id')->unsigned();
-            $table->foreign('copy_id')->references('id')->on('copies');
+            $table->foreign('copy_id')->references('id')->on('copies')->onDelete('cascade');;
             $table->dateTime('pickedup_at')->nullable();
             $table->dateTime('returned_at')->nullable();
             $table->timestamps();

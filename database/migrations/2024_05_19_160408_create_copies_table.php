@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('copies', function (Blueprint $table) {
             $table->bigIncrements('id')->primary()->autoIncrement()->unique();;
             $table->bigInteger('book_id')->unsigned();
-            $table->foreign('book_id')->references('id')->on('books');
+            $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');;
             $table->timestamps();
         });
     }

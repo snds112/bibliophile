@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('bgs', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('book_id')->unsigned();
-            $table->foreign('book_id')->references('id')->on('books');
+            $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');;
             $table->bigInteger('genre_id')->unsigned();
-            $table->foreign('genre_id')->references('id')->on('genres');
+            $table->foreign('genre_id')->references('id')->on('genres')->onDelete('cascade');;
             $table->timestamps();
         });
     }

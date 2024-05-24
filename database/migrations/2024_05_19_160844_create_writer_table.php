@@ -16,7 +16,7 @@ return new class extends Migration
             $table->bigInteger('book_id')->unsigned();
             $table->foreign('book_id')->references('id')->on('books');
             $table->bigInteger('author_id')->unsigned();
-            $table->foreign('author_id')->references('id')->on('authors');
+            $table->foreign('author_id')->references('id')->on('authors')->onDelete('cascade');;
             $table->timestamps();
         });
     }
