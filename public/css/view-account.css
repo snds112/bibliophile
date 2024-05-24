@@ -28,19 +28,20 @@
 .btn-modify {
     font-size: 1.2rem;
     color: #251605;
-    border-color: #251605;
+
     background-color: #cfbdb4;
 }
 .btn {
     color: #251605;
-    border-color: #251605;
+    border: 0px;
     background-color: #cfbdb4;
 }
 
-.btn:hover {
+.btn:hover,
+.btn:active {
     color: #251605;
     background-color: #8968588f;
-    border-color: #251605;
+    border: 0px;
     box-shadow: none;
 }
 .btn:focus {

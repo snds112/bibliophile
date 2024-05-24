@@ -49,7 +49,7 @@
                                 <form action="/request-admin" method="post">
                                     @csrf
                                     <input type="hidden" name="username" value="{{ $user->username }}">
-                                    <button type="submit" class="btn btn-primary">Request Admin Status</button>
+                                    <button type="submit" class="btn ">Request Admin Status</button>
                                 </form>
                             @endif
                         </div>
@@ -57,7 +57,7 @@
                     </div>
 
                     <div class="user-info-actions">
-                        <a href="/modify-account/{{ $user->username }}" class="btn btn-primary btn-modify">Modify
+                        <a href="/modify-account/{{ $user->username }}" class="btn  btn-modify">Modify
                             Information</a>
 
                     </div>
