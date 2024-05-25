@@ -1,8 +1,8 @@
 .container.main {
     background-color: #efe9e6;
-    padding: 30px;
-    margin-top: 30px;
-    border-radius: 5px;
+    padding: 2rem;
+
+    border-radius: 1rem;
 }
 .form-group label {
     font-weight: 0;
@@ -15,7 +15,7 @@
 .btn-save:hover {
     color: #251605;
     background-color: #8968588f;
-    border: 0px;
+
     box-shadow: none;
 }
 .btn-save:focus {

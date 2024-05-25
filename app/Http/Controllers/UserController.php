@@ -5,9 +5,58 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    public function modifyaccount(Request $request)
+    {
+        $user = User::Where('username', $request->input('currentusername'))->get()->first();
+
+        if ($user) {
+            $request->validate([
+                'username' => 'nullable|string|max:255|unique:users,username,',
+                'email' => 'nullable|email|max:255|unique:users,email,',
+                'phone' => 'nullable|string|max:255|unique:users,phone,',
+                'address' => 'nullable|string|max:511',
+            ]);
+            $request->validate([
+                'currentpassword' => 'nullable|string',
+                'newpassword' => 'nullable|string',
+            ]);
+            if (!is_null($request->currentpassword) && !is_null($request->newpassword)) {
+
+                if (!Hash::check($request->currentpassword, $user->password)) {
+                    $message = 'The provided password does not match your current password.';
+                    return back()->with('failure', $message);
+                }
+
+                $user->update([
+                    'password' => $request->newpassword,
+                ]);
+            } elseif (!is_null($request->newpassword)) {
+                $message = "Current password must be provided with new password.";
+                return back()->with('failure', $message);
+            } elseif (!is_null($request->currentpassword)) {
+                $message = "New password must be provided with current password.";
+                return back()->with('failure', $message);
+            }
+            if (!is_null($request->username))
+                $user->update(['username' => $request->username]);
+            if (!is_null($request->phone))
+                $user->update(['phone' => $request->phone]);
+            if (!is_null($request->email))
+                $user->update(['email' => $request->email]);
+            if (!is_null($request->address))
+                $user->update(['adress' => $request->address]);
+
+
+            return redirect()->route('account', [$user->username]);
+        } else {
+            $message = "User not found....";
+            return redirect('/')->with('failure', $message);
+        }
+    }
     public function loadmodifyaccount($username)
     {
         $user = User::Where('username', $username)->get()->first();

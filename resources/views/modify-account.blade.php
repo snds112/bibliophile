@@ -11,14 +11,14 @@
 
 
 @section('content')
-    <div class="container main">
+    <div class="container main my-5">
 
         <div class="row">
             <form action="/confirm-modify-profile" method="POST">
                 @csrf
 
 
-
+                <input type="hidden" name="currentusername" value="{{ $user->username }}">
                 <div class="row">
                     <div class="col-md-12">
                         <h5>Username</h5>
@@ -74,6 +74,27 @@
 
                     </div>
                 </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                        <h5>Password</h5>
+
+                        <div class="form-group">
+
+                            <input type="password" class="form-control" name="currentpassword" id="currentpassword"
+                                placeholder="Enter your current password or leave blank...">
+                            <label for="currentpassword"></label>
+                        </div>
+                        <div class="form-group">
+
+                            <input type="password" class="form-control" name="newpassword" id="newpassword"
+                                placeholder="Enter your new password or leave blank...">
+                            <label for="newpassword"></label>
+                        </div>
+
+                    </div>
+                </div>
+                <hr>
 
                 <div class="d-flex justify-content-end">
                     <button type="submit" class="btn btn-save" onclick="$(this).closest('form').submit();">Save</button>
