@@ -45,7 +45,7 @@
 
                                 </span>
                             </div>
-                            @if (!$user->admin || auth()->user()->id === $user->id)
+                            @if ((!$user->admin || auth()->user()->id === $user->id) && !$user->admin_request()->exists())
                                 <form action="/request-admin" method="post">
                                     @csrf
                                     <input type="hidden" name="username" value="{{ $user->username }}">

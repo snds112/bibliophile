@@ -55,4 +55,5 @@ route::get('/account/{username}', [userController::class, 'loadaccount'])->middl
 route::get('/modify-account/{username}', [userController::class, 'loadmodifyaccount'])->middleware('auth')->name('modify-account');
 
 Route::post('/confirm-modify-profile', [UserController::class, 'modifyaccount']);
+Route::post('/request-admin', [UserController::class, 'requestadmin']);
 //add modify, do not allow profile changes unless user has returned all their books

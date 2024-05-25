@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('admin_requests', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')->unsigned();
+            $table->bigInteger('user_id')->unique();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');;
             $table->enum('status', ['Accepted', 'Rejected', 'Pending'])->default('Pending');
             $table->timestamps();

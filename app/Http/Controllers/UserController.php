@@ -3,14 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\AdminRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    public function requestadmin(Request $request)
+    {
+        $user = User::Where('username', $request->input('username'))->get()->first();
+        if (!$user->admin_request()->exists()) {
+            $adminRequest = $user->admin_request()->create();
+        }
+    }
     public function modifyaccount(Request $request)
     {
+
         $user = User::Where('username', $request->input('currentusername'))->get()->first();
 
         if ($user) {
