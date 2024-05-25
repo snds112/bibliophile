@@ -32,3 +32,18 @@
     background-color: #821d31;
     color: #fff;
 }
+.cover-side {
+    display: inline-block;
+
+    width: -moz-fit-content;
+    width: fit-content;
+}
+.choose-side {
+    align-items: center;
+    width: -moz-fit-content;
+    width: fit-content;
+}
+
+.cover-side img {
+    max-height: 20vh;
+}

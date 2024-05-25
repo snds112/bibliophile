@@ -18,6 +18,10 @@ Route::get('/signup-login', function () {
 
     return view('signup-login');
 })->name('signup-login');
+Route::get('/signup-login', function () {
+
+    return view('signup-login');
+})->name('login');
 Route::post('/create-user', [UserController::class, 'create_user']);
 Route::get('/create-user', function () {
 
@@ -53,7 +57,7 @@ Route::get('/logout', [UserController::class, 'logout']);
 Route::post('/login', [UserController::class, 'login']);
 route::get('/account/{username}', [userController::class, 'loadaccount'])->middleware('auth')->name('account');
 route::get('/modify-account/{username}', [userController::class, 'loadmodifyaccount'])->middleware('auth')->name('modify-account');
+route::get('/modify-book/{bookId}', [BookController::class, 'loadmodifybook'])->middleware('auth')->name('modify-book');
 
 Route::post('/confirm-modify-profile', [UserController::class, 'modifyaccount']);
 Route::post('/request-admin', [UserController::class, 'requestadmin']);
-//add modify, do not allow profile changes unless user has returned all their books

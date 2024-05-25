@@ -20,7 +20,18 @@ use Dotenv\Exception\ValidationException;
 
 class BookController extends Controller
 {
+    public function loadmodifybook($bookId)
+    {
+        $book = Book::Find($bookId);
 
+        $user = User::find(auth()->user()->id);
+        if (!($user->admin)) {
+
+            $message = "You cannot modify book information!";
+            return redirect('/')->with('failure', $message);
+        }
+        return view('modify-book', compact('book'));
+    }
     public function checkborrow($user_id, $book_id)
     {
         $user = User::Find($user_id);
