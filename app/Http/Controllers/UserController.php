@@ -23,6 +23,7 @@ class UserController extends Controller
         $user = User::Where('username', $request->input('currentusername'))->get()->first();
 
         if ($user) {
+
             $request->validate([
                 'username' => 'nullable|string|max:255|unique:users,username,',
                 'email' => 'nullable|email|max:255|unique:users,email,',
