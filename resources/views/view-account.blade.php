@@ -64,7 +64,11 @@
                 </div>
             </div>
             <div class="col-md-6  rounded">
-                <div class="container user-borrow-info-col rounded">
+
+                <div class="container user-borrow-info-col rounded pt-5">
+                    <h3 class="user-info-title">User's borrow history:</h3>
+                    <br>
+
                     @foreach ($activeBorrows as $borrow)
                         <a href="/book/{{ $borrow->id }}" style="color: black">
                             @php

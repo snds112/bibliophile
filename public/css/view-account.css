@@ -53,16 +53,20 @@
 }
 .bc {
     margin: 0.25rem;
-    max-height: inherit;
+    max-height: 6rem;
     max-width: inherit;
     object-fit: contain;
 }
 .borrow-item {
-    border-bottom: 1px solid #000;
+    border-top: 1px solid #000;
     padding: 0.5rem;
 }
 .user-borrow-info-col a {
     text-decoration: none;
+}
+.user-borrow-info-col {
+    max-height: 100vh;
+    overflow: auto;
 }
 .book-cover-col {
     object-fit: contain;
