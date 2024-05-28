@@ -22,7 +22,7 @@
 
         <div class="row justify-content-center">
 
-            <div class="col-md-4 mt-2" >
+            <div class="col-md-4 mt-2">
                 <div class="bookcard">
 
                     <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
@@ -68,6 +68,7 @@
                                         $authors = $book->authors()->get();
 
                                         $publisher = $book->publisher;
+                                        $genres = $book->genres;
                                     @endphp
                                     <div class="information-userinfo">
                                         <h5>Title: <span> {{ $book->title }}
@@ -103,6 +104,13 @@
 
                                         @foreach ($authors as $author)
                                             <span> - {{ $author->fullname }}
+                                            </span>
+                                        @endforeach
+                                        <hr>
+                                        <h5>Genre(s):</h5>
+
+                                        @foreach ($genres as $genre)
+                                            <span> - {{ $genre->name }}
                                             </span>
                                         @endforeach
                                         <br>
@@ -149,11 +157,11 @@
                                                         });
                                                 });
                                             </script>
-                                            @if (auth()->user()->type == 'admin')
+                                            @if (auth()->user()->admin)
                                                 <form action="/delete-book" method="post" id="deleteBook">
                                                     @csrf
-
-                                                    <input type="hidden" name="bookId" value= "{{ $book->id }}">
+                                                   
+                                                    <input type="hidden" name="bookid" value="{{ $book->id }}">
                                                     <i class="material-symbols-outlined "
                                                         onclick="document.getElementById('deleteBook').submit()">delete</i></button>
                                                 </form>

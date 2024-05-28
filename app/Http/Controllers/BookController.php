@@ -20,16 +20,24 @@ use Dotenv\Exception\ValidationException;
 
 class BookController extends Controller
 {
+    public function deletebook(Request $request)
+    {
+
+        $book = Book::find($request->id);
+        $book->delete();
+        $message = "Book Deleted";
+        return redirect('/')->with('success', $message);
+    }
     public function modifybook(Request $request)
     {
-        $book = Book::find($request->bookId);
+        $book = Book::find($request->bookid);
 
 
-        if ($user) {
+        if ($book) {
 
             $request->validate([
-                'ISBN' => 'nullable|string|max:255|unique:books,ISBN,',
-                'title' => 'nullable|title|max:255',
+                'ISBN' => 'nullable|string|max:255|unique:books',
+                'title' => 'nullable|string|max:255',
                 'year_of_publication' => 'nullable|string|size:4',
                 'edition' => 'nullable|string|max:45',
                 'description' => 'nullable|string',
@@ -37,40 +45,100 @@ class BookController extends Controller
                 'number_of_copies' => 'nullable|integer|min:0',
                 'publisher' => 'nullable|string|exists:publishers,name'
             ]);
-            $request->validate([
-                'currentpassword' => 'nullable|string',
-                'newpassword' => 'nullable|string',
-            ]);
-            if (!is_null($request->currentpassword) && !is_null($request->newpassword)) {
+            if (!is_null($request->ISBN))
+                $book->update(['ISBN' => $request->ISBN]);
+            if (!is_null($request->title))
+                $book->update(['title' => $request->title]);
+            if (!is_null($request->year_of_publication))
+                $book->update(['year_of_publication' => $request->year_of_publication]);
+            if (!is_null($request->edition))
+                $book->update(['edition' => $request->edition]);
+            if (!is_null($request->description))
+                $book->update(['description' => strip_tags($request->description)]);
+            if (!is_null($request->type))
+                $book->update(['type' => $request->type]);
+            if (!is_null($request->number_of_copies)) {
+                $copynumber = count($book->copies) + $request->number_of_copies;
+                $book->update(['number_of_copies' => $copynumber]);
+            }
+            for ($i = 0; $i < $request->number_of_copies; $i++) {
+                $copy = Copy::create([
+                    'book_id' => $book->id
+                ]);
+            }
+            if (!is_null($request->publisher_id)) {
 
-                if (!Hash::check($request->currentpassword, $user->password)) {
-                    $message = 'The provided password does not match your current password.';
-                    return back()->with('failure', $message);
+                $publisher = Publisher::where('name', $request->publisher_id)->get()->first();
+
+                $book->update(['publisher_id' => $publisher->id]);
+            }
+
+
+            $genres = explode(",", $request->input("genres"));
+
+            //add the genre links in the bgs table (to link the book to all the genres)
+            if (!empty($genres[0])) {
+                $oldgenres = $book->genres;
+                foreach ($oldgenres as $genre) {
+                    $genretodelete = BookGenre::where('book_id', $book->id)->orwhere('genre_id', $genre->id)->get()->first()->delete();
                 }
 
-                $user->update([
-                    'password' => $request->newpassword,
-                ]);
-            } elseif (!is_null($request->newpassword)) {
-                $message = "Current password must be provided with new password.";
-                return back()->with('failure', $message);
-            } elseif (!is_null($request->currentpassword)) {
-                $message = "New password must be provided with current password.";
-                return back()->with('failure', $message);
+
+                foreach ($genres as $genre) {
+                    if ($genre) {
+                        //get the Genre
+                        $genre = (Genre::Where('name', $genre)->get()->first())->id;
+                        if (!empty($genre)) {
+                            //check whether or not the entry in bgs already exists
+                            $existingEntry = BookGenre::where('genre_id', $genre)
+                                ->where('book_id', $book->id)
+                                ->first();
+                            //if it doesnt then enter it
+                            if (!$existingEntry) {
+                                BookGenre::create([
+                                    'book_id' => $book->id,
+                                    'genre_id' => $genre
+                                ]);
+                            }
+                        }
+                    }
+                }
             }
-            if (!is_null($request->username))
-                $user->update(['username' => $request->username]);
-            if (!is_null($request->phone))
-                $user->update(['phone' => $request->phone]);
-            if (!is_null($request->email))
-                $user->update(['email' => $request->email]);
-            if (!is_null($request->address))
-                $user->update(['adress' => $request->address]);
+
+            $authors = explode(",", $request->input("authors"));
+
+            //add the genre links in the bgs table (to link the book to all the authors)
+            if (!empty($authors[0])) {
+                $oldauthors = $book->authors;
+                foreach ($oldauthors as $author) {
+                    $authortodelete = Writer::where('book_id', $book->id)->orwhere('author_id', $author->id)->get()->first()->delete();
+                }
+                foreach ($authors as $author) {
+                    if ($author) {
+                        //get the author
+                        $author = (Author::Where('fullname', $author)->get()->first())->id;
+                        if (!empty($author)) {
+                            //check whether or not the entry in bgs already exists
+                            $existingEntry = Writer::where('author_id', $author)
+                                ->where('book_id', $book->id)
+                                ->first();
+                            //if it doesnt then enter it
+                            if (!$existingEntry) {
+                                Writer::create([
+                                    'book_id' => $book->id,
+                                    'author_id' => $author
+                                ]);
+                            }
+                        }
+                    }
+                }
+            }
 
 
-            return redirect()->route('account', [$user->username]);
+
+            return redirect()->route('book-card', [$book->id]);
         } else {
-            $message = "User not found....";
+            $message = "Book not found....";
             return redirect('/')->with('failure', $message);
         }
     }
@@ -233,7 +301,7 @@ class BookController extends Controller
 
 
         //add the genre links in the bgs table (to link the book to all the genres)
-        if (!empty($genres)) {
+        if (!empty($genres[0])) {
             foreach ($genres as $genre) {
                 if ($genre) {
                     //get the Genre
@@ -259,7 +327,7 @@ class BookController extends Controller
 
 
         //add the genre links in the bgs table (to link the book to all the authors)
-        if (!empty($authors)) {
+        if (!empty($authors[0])) {
             foreach ($authors as $author) {
                 if ($author) {
                     //get the author

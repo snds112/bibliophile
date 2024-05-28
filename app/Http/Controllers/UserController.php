@@ -10,6 +10,12 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    public function deleteaccount(Request $request)
+    {
+        User::find($request->id)->delete();
+        $message = "User Deleted";
+        return redirect('/')->with('success', $message);
+    }
     public function requestadmin(Request $request)
     {
         $user = User::Where('username', $request->input('username'))->get()->first();

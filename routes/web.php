@@ -60,4 +60,7 @@ route::get('/modify-account/{username}', [userController::class, 'loadmodifyacco
 route::get('/modify-book/{bookId}', [BookController::class, 'loadmodifybook'])->middleware('auth')->name('modify-book');
 
 Route::post('/confirm-modify-profile', [UserController::class, 'modifyaccount']);
+Route::post('/confirm-modify-book', [BookController::class, 'modifybook']);
 Route::post('/request-admin', [UserController::class, 'requestadmin']);
+Route::post('/delete-account', [UserController::class, 'deleteaccount']);
+Route::post('/delete-book', [BookController::class, 'deletebook']);

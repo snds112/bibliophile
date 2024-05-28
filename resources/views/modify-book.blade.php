@@ -17,7 +17,7 @@
     <div class="container main my-5">
 
         <div class="row">
-            <form action="/confirm-modify-profile" method="POST" enctype="multipart/form-data">
+            <form action="/confirm-modify-book" method="POST" id="book-form"enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="bookid" value="{{ $book->id }}">
                 <div class="row mb-4 ">
@@ -99,9 +99,9 @@
                         <span>Current : {!! $book->description !!}</span>
                         <div class="form-group">
 
-                            <textarea class="form-control" name="edition" id="edition" rows="1"
-                                placeholder="Enter new edition or leave blank..."></textarea>
-                            <label for="edition"></label>
+                            <textarea class="form-control" name="description" id="description" rows="1"
+                                placeholder="Enter new description or leave blank..."></textarea>
+                            <label for="description"></label>
                         </div>
 
                     </div>
@@ -127,7 +127,7 @@
 
                 <div class="row">
                     <div class="col-md-12">
-                        <h5>Number of copies</h5>
+                        <h5>Add copies</h5>
                         <span>Current : {{ $book->number_of_copies }}</span>
                         <div class="form-group">
 
@@ -153,16 +153,24 @@
                             <input type="text" class="form-control" name="publisher_id" id="publisher_id"
                                 placeholder="Enter new publisher or leave blank...">
                             <label for="publisher_id"></label>
+                            <a href="/add-publisher" style="text-decoration: underline; color: black;">Add Publisher?</a>
                         </div>
 
                     </div>
+
                 </div>
                 <hr>
                 <div class="row">
                     <div class="col-6">
                         <div class="form-group">
 
-                            <label for="searchPeople">Search Genres :</label>
+                            <h5>Genres</h5>
+
+                            <span>Input a new list of genres or leave blank to keep the current genres :</span>
+                            <br>
+                            @foreach ($book->genres as $genre)
+                                <span>- {{ $genre->name }}</span>
+                            @endforeach
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control" id="genre-name" name="genre-name"
                                     placeholder="Search for genres">
@@ -181,7 +189,14 @@
                     <div class="col-6">
                         <div class="form-group">
 
-                            <label for="searchPeople">Search Authors:</label>
+
+                            <h5>Authors</h5>
+
+                            <span>Input a new list of authors or leave blank to keep the current authors :</span>
+                            <br>
+                            @foreach ($book->authors as $author)
+                                <span>- {{ $author->fullname }}</span>
+                            @endforeach
                             <div class="input-group mb-3">
                                 <input type="text" class="form-control" id="author-name" name="author-name"
                                     placeholder="Search for authors">
@@ -200,7 +215,7 @@
                 </div>
                 <hr>
                 <div class="d-flex justify-content-end">
-                    <button type="submit" class="btn btn-save" onclick="$(this).closest('form').submit();">Save</button>
+                    <button type="submit" class="btn btn-save" id="store-book">Save</button>
 
                 </div>
             </form>
@@ -208,6 +223,7 @@
                 <div class="col-12" style="display: flex; justify-content:start;">
                     <form action="/delete-book" method="post">
                         @csrf
+                        <input type="hidden" name="id" value="{{ $book->id }}">
                         <button class="btn btn-delete"><i class="fas fa-trash"
                                 onclick="$(this).closest('form').submit();"></i>&nbsp; Delete Book</button>
                     </form>

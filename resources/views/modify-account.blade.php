@@ -103,8 +103,9 @@
             </form>
             <div class="row">
                 <div class="col-12" style="display: flex; justify-content:start;">
-                    <form action="/delete-own-account" method="post">
+                    <form action="/delete-account" method="post">
                         @csrf
+                        <input type="hidden" name="id" value="{{ $user->id }}">
                         <button class="btn btn-delete"><i class="fas fa-trash"
                                 onclick="$(this).closest('form').submit();"></i>&nbsp; Delete account</button>
                     </form>
