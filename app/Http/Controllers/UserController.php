@@ -81,16 +81,18 @@ class UserController extends Controller
     public function loadaccount($username)
     {
         $user = User::Where('username', $username)->get()->first();
+        $loggedIn = User::find(auth()->user()->id);
 
-        if (!($user == User::find(auth()->user()->id) || $user->admin)) {
+        if (($user == User::find(auth()->user()->id) || $loggedIn->admin)) {
+            $activeBorrows = $user->borrows()->get();
+
+
+            return view('view-account', compact('user', 'activeBorrows'));
+        } else {
 
             $message = "You cannot view another user's information!";
             return redirect('/')->with('failure', $message);
         }
-        $activeBorrows = $user->borrows()->get();
-
-
-        return view('view-account', compact('user', 'activeBorrows'));
     }
     public function logout(Request $request)
     {

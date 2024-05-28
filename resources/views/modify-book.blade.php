@@ -6,6 +6,9 @@
 
 
 @section('scripts')
+    <script src="{{ asset('/bootstrap/js/jquery-3.7.1.min.js') }}"></script>
+
+    <script src="{{ asset('/js/add-book.js') }}"></script>
 @endsection
 
 
@@ -16,7 +19,7 @@
         <div class="row">
             <form action="/confirm-modify-profile" method="POST" enctype="multipart/form-data">
                 @csrf
-
+                <input type="hidden" name="bookid" value="{{ $book->id }}">
                 <div class="row mb-4 ">
                     <div class="col-md-12">
 
@@ -155,7 +158,47 @@
                     </div>
                 </div>
                 <hr>
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
 
+                            <label for="searchPeople">Search Genres :</label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" id="genre-name" name="genre-name"
+                                    placeholder="Search for genres">
+                                <button class="btn btn-outline-secondary" type="button" name="add-genre"
+                                    id="add-genre">Add</button>
+                                <button class="btn btn-outline-secondary" type="button"
+                                    name="reset-genre"id="reset-genre">Reset</button>
+
+                            </div>
+                            <div id="genre-message"></div>
+                            <ul id="selected-genres"></ul>
+                            <input type="hidden" name="genres" id="genres" value="">
+
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="form-group">
+
+                            <label for="searchPeople">Search Authors:</label>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" id="author-name" name="author-name"
+                                    placeholder="Search for authors">
+                                <button class="btn btn-outline-secondary" type="button" name="add-author"
+                                    id="add-author">Add</button>
+                                <button class="btn btn-outline-secondary" type="button"
+                                    name="reset-author"id="reset-author">Reset</button>
+
+                            </div>
+                            <div id="author-message"></div>
+                            <ul id="selected-authors"></ul>
+                            <input type="hidden" name="authors" id="authors" value="">
+
+                        </div>
+                    </div>
+                </div>
+                <hr>
                 <div class="d-flex justify-content-end">
                     <button type="submit" class="btn btn-save" onclick="$(this).closest('form').submit();">Save</button>
 

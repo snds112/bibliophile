@@ -20,6 +20,60 @@ use Dotenv\Exception\ValidationException;
 
 class BookController extends Controller
 {
+    public function modifybook(Request $request)
+    {
+        $book = Book::find($request->bookId);
+
+
+        if ($user) {
+
+            $request->validate([
+                'ISBN' => 'nullable|string|max:255|unique:books,ISBN,',
+                'title' => 'nullable|title|max:255',
+                'year_of_publication' => 'nullable|string|size:4',
+                'edition' => 'nullable|string|max:45',
+                'description' => 'nullable|string',
+                'type' => 'nullable|in:Hardcover,Paperback,Ebook',
+                'number_of_copies' => 'nullable|integer|min:0',
+                'publisher' => 'nullable|string|exists:publishers,name'
+            ]);
+            $request->validate([
+                'currentpassword' => 'nullable|string',
+                'newpassword' => 'nullable|string',
+            ]);
+            if (!is_null($request->currentpassword) && !is_null($request->newpassword)) {
+
+                if (!Hash::check($request->currentpassword, $user->password)) {
+                    $message = 'The provided password does not match your current password.';
+                    return back()->with('failure', $message);
+                }
+
+                $user->update([
+                    'password' => $request->newpassword,
+                ]);
+            } elseif (!is_null($request->newpassword)) {
+                $message = "Current password must be provided with new password.";
+                return back()->with('failure', $message);
+            } elseif (!is_null($request->currentpassword)) {
+                $message = "New password must be provided with current password.";
+                return back()->with('failure', $message);
+            }
+            if (!is_null($request->username))
+                $user->update(['username' => $request->username]);
+            if (!is_null($request->phone))
+                $user->update(['phone' => $request->phone]);
+            if (!is_null($request->email))
+                $user->update(['email' => $request->email]);
+            if (!is_null($request->address))
+                $user->update(['adress' => $request->address]);
+
+
+            return redirect()->route('account', [$user->username]);
+        } else {
+            $message = "User not found....";
+            return redirect('/')->with('failure', $message);
+        }
+    }
     public function loadmodifybook($bookId)
     {
         $book = Book::Find($bookId);
@@ -158,11 +212,11 @@ class BookController extends Controller
         $book = Book::create([
             'ISBN' => $validatedData['ISBN'],
             'title' =>            $validatedData['title'],
-            'year_of_publication' =>            $validatedData['year_of_publication'], // Ensures a valid year format (YYYY)
-            'edition' =>            $validatedData['edition'], // Allow empty edition but limit length
+            'year_of_publication' =>            $validatedData['year_of_publication'],
+            'edition' =>            $validatedData['edition'],
             'description' =>            $validatedData['description'],
-            'type' =>            $validatedData['type'], // Validate against defined types
-            'cover_addr' =>  '/storage' . $storagePath . $uploadedMediaName, // Allow empty cover address but limit length
+            'type' =>            $validatedData['type'],
+            'cover_addr' =>  '/storage' . $storagePath . $uploadedMediaName,
             'number_of_copies' =>            $validatedData['number_of_copies'],
             'publisher_id' =>  $publisher ? $publisher->id : null,
 
