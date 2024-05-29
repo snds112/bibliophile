@@ -77,7 +77,7 @@
 
                                         <hr>
                                         @if ($book->edition)
-                                            <h5>Edition: <span> {{ $book->title }}
+                                            <h5>Edition: <span> {{ $book->edition }}
                                                 </span></h5>
 
 
@@ -160,10 +160,20 @@
                                             @if (auth()->user()->admin)
                                                 <form action="/delete-book" method="post" id="deleteBook">
                                                     @csrf
-                                                   
+
                                                     <input type="hidden" name="bookid" value="{{ $book->id }}">
                                                     <i class="material-symbols-outlined "
-                                                        onclick="document.getElementById('deleteBook').submit()">delete</i></button>
+                                                        onclick="document.getElementById('deleteBook').submit()">delete</i>
+                                                </form>
+                                                <form action="/modify-book/{{ $book->id }}" method="get"
+                                                    id="modifyBook">
+                                                    @csrf
+                                                    <i class="material-symbols-outlined"
+                                                        onclick="document.getElementById('modifyBook').submit()">
+                                                        edit_document
+                                                    </i>
+
+
                                                 </form>
                                             @endif
 

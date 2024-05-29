@@ -11,6 +11,7 @@ class AdminRequest extends Model
     protected $table = 'admin_requests';
     protected $fillable = [
         'user_id',
+        'status'
     ];
 
     protected $primaryKey = 'id';
