@@ -20,6 +20,17 @@ use Dotenv\Exception\ValidationException;
 
 class BookController extends Controller
 {
+    public function loadhome()
+    {
+        $popular = Book::withCount('borrows')
+            ->orderBy('borrows_count', 'desc')
+            ->limit(20)
+            ->get();
+        $recent = Book::orderBy('created_at', 'desc')
+            ->limit(20)
+            ->get();
+        return view('home', compact('popular', 'recent'));
+    }
     public function deletebook(Request $request)
     {
 

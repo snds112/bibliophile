@@ -8,6 +8,8 @@
     padding: 20px;
     border-radius: 0.25rem;
     box-shadow: 0 4ppx 6px rgba(0, 0, 0, 0.1);
+    align-items: center;
+    display: flex;
     min-height: 80vh;
     max-height: 100vh;
 }
@@ -45,7 +47,6 @@ audio {
 }
 .carousel-item img,
 .media img {
-    min-height: 70vh;
     max-height: 100vh;
     object-fit: contain;
 }
@@ -58,7 +59,6 @@ audio {
     border-color: #d1c7bd !important;
     color: #d1c7bd !important;
 }
-
 
 .book-side {
     min-height: 80vh;

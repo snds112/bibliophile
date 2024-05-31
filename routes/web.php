@@ -10,9 +10,7 @@ use App\Models\Book;
 
 
 
-Route::get('/', function () {
-    return view('home');
-})->name('home');
+Route::get('/', [BookController::class, 'loadhome'])->name('home');
 
 Route::get('/signup-login', function () {
 
