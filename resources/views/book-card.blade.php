@@ -35,8 +35,9 @@
 
 
 
-                            <div class="carousel-item active">
-                                <img src="{{ asset($book->cover_addr) }}" class="d-block w-100" alt="BookCard image">
+                            <div class="carousel-item active rounded">
+                                <img src="{{ asset($book->cover_addr) }}" class="d-block w-100 rounded"
+                                    alt="BookCard image">
                             </div>
 
                         </div>
@@ -63,7 +64,7 @@
                     <div class="book-info py-0">
                         <div class="informations " style="margin: 10px 0px">
                             <div class="row">
-                                <div class="col-md-9">
+                                <div class="col-md-11">
                                     @php
                                         $authors = $book->authors()->get();
 
@@ -121,7 +122,7 @@
                                         </p>
                                     </div>
                                 </div>
-                                <div class="col-md-3" style="text-align: end;">
+                                <div class="col-md-1" style="text-align: end;">
                                     <div class="information-like_comment_share">
                                         <span>
 
