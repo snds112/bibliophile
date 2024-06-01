@@ -62,3 +62,4 @@ Route::post('/confirm-modify-book', [BookController::class, 'modifybook']);
 Route::post('/request-admin', [UserController::class, 'requestadmin']);
 Route::post('/delete-account', [UserController::class, 'deleteaccount']);
 Route::post('/delete-book', [BookController::class, 'deletebook']);
+Route::post('/search', [UserController::class, 'searchResults']);

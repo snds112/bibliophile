@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Book;
 use App\Models\User;
+use App\Models\Genre;
+use App\Models\Author;
+use App\Models\Publisher;
 use App\Models\AdminRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -10,6 +14,30 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
+    public function searchResults(Request $request)
+    {
+
+        $searchTerm = $request->searchTerm;
+        $searchTerm  = strip_tags($searchTerm);
+        $users = User::where('username', 'like', "%{$searchTerm}%")->get();
+        $authors = Author::where('fullname', 'like', "%{$searchTerm}%")->get();
+        $publishers = Publisher::where('name', 'like', "%{$searchTerm}%")->get();
+        $genres = Genre::where('name', 'like', "%{$searchTerm}%")->get();
+        $books =  Book::where('title', 'like', "%{$searchTerm}%")->get();
+
+        $results[] = $users;
+        $results[] = $authors;
+        $results[] = $publishers;
+        $results[] = $genres;
+        $results[] = $books;
+
+
+
+
+
+
+        return view('search-results', compact('searchTerm', 'results'));
+    }
     public function deleteaccount(Request $request)
     {
         User::find($request->id)->delete();
