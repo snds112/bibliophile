@@ -60,6 +60,7 @@ Route::get('/add-genre', function () {
 
 route::get('/book/{book_id}', [BookController::class, 'showsinglebook'])->name('book-card');
 route::get('/author/{author_id}', [AuthorController::class, 'showsingleauthor'])->name('author-card');
+route::get('/genre/{genre_id}', [genreController::class, 'showsinglegenre'])->name('genre-card');
 route::post('/borrow/{user_id}/{book_id}', [BookController::class, 'borrow']);
 Route::post('/store-genre', [GenreController::class, 'storegenre']);
 Route::get('/search-author', [AuthorController::class, 'searchAuthors']);
@@ -69,19 +70,21 @@ Route::post('/login', [UserController::class, 'login']);
 route::get('/account/{username}', [userController::class, 'loadaccount'])->middleware('auth')->name('account');
 route::get('/modify-account/{username}', [userController::class, 'loadmodifyaccount'])->middleware('auth')->name('modify-account');
 route::get('/modify-book/{bookId}', [BookController::class, 'loadmodifybook'])->middleware('auth')->name('modify-book');
-route::get('/modify-author/{authorId}', [AuthorController::class, 'loadmodifyauthor'])->middleware('auth')->name('modify-book');
+route::get('/modify-author/{authorId}', [AuthorController::class, 'loadmodifyauthor'])->middleware('auth')->name('modify-author');
+route::get('/modify-genre/{genreId}', [GenreController::class, 'loadmodifygenre'])->middleware('auth')->name('modify-genre');
 
 Route::post('/confirm-modify-profile', [UserController::class, 'modifyaccount']);
 Route::post('/confirm-modify-book', [BookController::class, 'modifybook']);
 Route::post('/confirm-modify-author', [AuthorController::class, 'modifyauthor']);
+Route::post('/confirm-modify-genre', [GenreController::class, 'modifygenre']);
 
-
-Route::post('/request-admin', [UserController::class, 'requestadmin']);
 Route::post('/delete-account', [UserController::class, 'deleteaccount']);
 Route::post('/delete-book', [BookController::class, 'deletebook']);
 Route::post('/delete-author', [AuthorController::class, 'deleteauthor']);
+Route::post('/delete-genre', [GenreController::class, 'deletegenre']);
 
 Route::post('/search', [UserController::class, 'searchResults']);
 Route::post('/confirm-request', [BookController::class, 'confirmRequest']);
 Route::post('/delete-request', [BookController::class, 'deleteRequest']);
 Route::post('/return-book', [BookController::class, 'returnBook']);
+Route::post('/request-admin', [UserController::class, 'requestadmin']);

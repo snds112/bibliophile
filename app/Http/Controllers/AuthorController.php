@@ -103,7 +103,7 @@ class AuthorController extends Controller
         $user = User::find(auth()->user()->id);
         if (!($user->admin)) {
 
-            $message = "You cannot modify book information!";
+            $message = "You cannot modify genre information!";
             return redirect('/')->with('failure', $message);
         }
         return view('modify-author', compact('author'));

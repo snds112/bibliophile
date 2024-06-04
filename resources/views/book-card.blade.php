@@ -112,7 +112,8 @@
                                         <h5>Genre(s):</h5>
 
                                         @foreach ($genres as $genre)
-                                            <span> - {{ $genre->name }}
+                                            <span> - <a
+                                                    href="/genre/{{ $genre->id }}"style="color: black">{{ $genre->name }}</a>
                                             </span>
                                         @endforeach
                                         <br>
