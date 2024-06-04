@@ -12,13 +12,19 @@ class Borrow extends Model
     protected $fillable = [
         'user_id',
         'copy_id',
-        'pickedup_at',
         'returned_at',
     ];
 
     protected $primaryKey = 'id';
 
     public $timestamps = true;
+
+    protected function casts(): array
+    {
+        return [
+            'returned_at' => 'datetime:d/m/Y',
+        ];
+    }
 
     /**
      * Relationship with User model

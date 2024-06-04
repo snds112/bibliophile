@@ -16,9 +16,9 @@ return new class extends Migration
             $table->bigInteger('user_id')->unsigned();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');;
             $table->bigInteger('copy_id')->unsigned();
-            $table->foreign('copy_id')->references('id')->on('copies')->onDelete('cascade');;
-            $table->dateTime('pickedup_at')->nullable();
-            $table->dateTime('returned_at')->nullable();
+            $table->foreign('copy_id')->references('id')->on('copies')->onDelete('cascade');
+
+            $table->timestamp('returned_at')->nullable();
             $table->timestamps();
         });
     }

@@ -89,13 +89,6 @@
                         logout
                     </span>
                 </a>
-                @if (auth()->user()->admin)
-                    <a href="/admin">
-                        <span class="material-symbols-outlined me-4 fs-2">
-                            admin_panel_settings
-                        </span>
-                    </a>
-                @endif
             @else
                 <a href="/signup-login">
                     <span class="material-symbols-outlined me-4 fs-2">
@@ -103,8 +96,6 @@
                     </span>
                 </a>
             @endif
-
-
         </div>
     </header>
     @if (session()->has('success'))

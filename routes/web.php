@@ -48,7 +48,7 @@ Route::get('/add-genre', function () {
 });
 
 route::get('/book/{book_id}', [BookController::class, 'showsinglebook'])->name('book-card');
-route::post('/borrow/{user_id}/{book_id}', [BookController::class, 'checkborrow']);
+route::post('/borrow/{user_id}/{book_id}', [BookController::class, 'borrow']);
 Route::post('/store-genre', [GenreController::class, 'storegenre']);
 Route::get('/search-author', [AuthorController::class, 'searchAuthors']);
 Route::get('/logout', [UserController::class, 'logout']);
@@ -63,3 +63,6 @@ Route::post('/request-admin', [UserController::class, 'requestadmin']);
 Route::post('/delete-account', [UserController::class, 'deleteaccount']);
 Route::post('/delete-book', [BookController::class, 'deletebook']);
 Route::post('/search', [UserController::class, 'searchResults']);
+Route::post('/confirm-request', [BookController::class, 'confirmRequest']);
+Route::post('/delete-request', [BookController::class, 'deleteRequest']);
+Route::post('/return-book', [BookController::class, 'returnBook']);

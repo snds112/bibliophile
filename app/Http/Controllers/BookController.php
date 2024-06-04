@@ -13,13 +13,74 @@ use App\Models\Writer;
 use App\Models\BookGenre;
 use App\Models\Publisher;
 use Illuminate\Http\Request;
-use function PHPUnit\Framework\isEmpty;
-use function PHPUnit\Framework\isNull;
+use App\Models\BorrowRequest;
+use Illuminate\Support\Carbon;
 
+use function PHPUnit\Framework\isNull;
+use function PHPUnit\Framework\isEmpty;
 use Dotenv\Exception\ValidationException;
 
 class BookController extends Controller
 {
+    public function returnBook(Request $request)
+    {
+        $borrow = Borrow::find($request->borrowid);
+
+
+
+        $borrow->update(['returned_at' => now()]);
+
+        return back();
+    }
+    public function deleteRequest(Request $request)
+    {
+        $borrowRequest = BorrowRequest::find($request->requestid);
+        $borrowRequest->delete();
+        return back();
+    }
+    public function confirmRequest(Request $request)
+    {
+        $book = Book::find($request->bookid);
+        $borrowRequest = BorrowRequest::find($request->requestid);
+        $user = User::find($request->userid);
+
+        $copies = $book->copies()->get();
+        $availableCopies = [];
+        foreach ($copies as $copy) {
+            // Check if the copy has no borrows (never borrowed)
+            if ($copy->borrow->isEmpty()) {
+                $availableCopies[] = $copy;
+            } else {
+                // Explicitly load borrows if there are any
+                $copy->load('borrow');
+
+                // Check if all borrows have a non-null returned_at (all returned)
+                if ($copy->borrow->every(function ($borrow) {
+                    return !is_null($borrow->returned_at);
+                })) {
+                    $availableCopies[] = $copy;
+                }
+            }
+        }
+
+        if (count($availableCopies)) {
+            $copy = $availableCopies[0];
+            if (count($availableCopies) > 1) {
+
+                $message = 'There are currently ' . count($availableCopies) . " copies available, The request has been confirmed :)";
+            } else
+                $message = 'There is currently ' . count($availableCopies) . " copy available, The request has been confirmed :)";
+
+            $borrow = Borrow::create([
+                'copy_id' => $copy->id,
+                'user_id' => $user->id,
+            ]);
+            $borrowRequest->delete();
+            return back()->with('success', $message);
+        } else {
+            return back()->with('failure', 'No available copies :(');
+        }
+    }
     public function loadhome()
     {
         $popular = Book::withCount('borrows')
@@ -165,7 +226,7 @@ class BookController extends Controller
         }
         return view('modify-book', compact('book'));
     }
-    public function checkborrow($user_id, $book_id)
+    public function borrow($user_id, $book_id)
     {
         $user = User::Find($user_id);
         $book = Book::Find($book_id);
@@ -190,10 +251,16 @@ class BookController extends Controller
         }
 
         if (count($availableCopies)) {
-            if (count($availableCopies) > 1)
-                $message = 'There are currently ' . count($availableCopies) . " copies available, You're welcome to come our location to pick one up :)";
-            else
+            if (count($availableCopies) > 1) {
+
+                $message = 'There are currently ' . count($availableCopies) . " copies available, Your request has been processed, pick it up at the closest location :)";
+            } else
                 $message = 'There is currently ' . count($availableCopies) . " copy available, You're welcome to come our location to pick it up :)";
+
+            $borrowRequest = BorrowRequest::create([
+                'book_id' => $book->id,
+                'user_id' => $user->id
+            ]);
             return back()->with('success', $message);
         } else {
             return back()->with('failure', 'No available copies :(');

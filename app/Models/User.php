@@ -24,6 +24,7 @@ class User extends Authenticatable
         'phone',
         'adress',
         'password',
+        'admin',
     ];
 
     /**
@@ -54,8 +55,9 @@ class User extends Authenticatable
         return $this->hasMany(Borrow::class);
     }
 
-    public function admin_request()
+
+    public function borrow_requests()
     {
-        return $this->hasOne(AdminRequest::class);
+        return $this->hasMany(BorrowRequest::class);
     }
 }

@@ -19,10 +19,27 @@ class UserController extends Controller
 
         $searchTerm = $request->searchTerm;
         $searchTerm  = strip_tags($searchTerm);
+        $searchTerm = "%{$searchTerm}%";
         $users = User::where('username', 'like', "%{$searchTerm}%")->get();
-        $authors = Author::where('fullname', 'like', "%{$searchTerm}%")->get();
-        $publishers = Publisher::where('name', 'like', "%{$searchTerm}%")->get();
-        $genres = Genre::where('name', 'like', "%{$searchTerm}%")->get();
+        $authors = Author::with('books')
+            ->where('fullname', 'like', $searchTerm)
+            ->whereHas('books', function ($query) {
+            })
+            ->get();
+
+
+
+        $publishers = Publisher::with('books')
+            ->where('name', 'like', $searchTerm)
+            ->whereHas('books', function ($query) {
+            })
+            ->get();
+
+        $genres = Genre::with('books')
+            ->where('name', 'like', $searchTerm)
+            ->whereHas('books', function ($query) {
+            })
+            ->get();
         $books =  Book::where('title', 'like', "%{$searchTerm}%")->get();
 
         $results[] = $users;
@@ -47,9 +64,8 @@ class UserController extends Controller
     public function requestadmin(Request $request)
     {
         $user = User::Where('username', $request->input('username'))->get()->first();
-        if (!$user->admin_request()->exists()) {
-            $adminRequest = $user->admin_request()->create();
-        }
+        $user->update(['admin' => 1]);
+        return back();
     }
     public function modifyaccount(Request $request)
     {
@@ -118,10 +134,22 @@ class UserController extends Controller
         $loggedIn = User::find(auth()->user()->id);
 
         if (($user == User::find(auth()->user()->id) || $loggedIn->admin)) {
-            $activeBorrows = $user->borrows()->get();
+            $returnedBorrows = $user->borrows()->wherenull('returned_at')->orderby('created_at', 'desc')->get();
+            $nonreturnedBorrows = $user->borrows()->wherenotnull('returned_at')->orderby('created_at', 'desc')->get();
+            $activeBorrows = [];
+            foreach ($returnedBorrows as $borrow) {
+                if ($borrow)
+                    $activeBorrows[] = $borrow;
+            }
+            foreach ($nonreturnedBorrows as $borrow) {
+                if ($borrow)
+                    $activeBorrows[] = $borrow;
+            }
+
+            $borrowRequests = $user->borrow_requests()->orderby('created_at', 'desc')->get();
 
 
-            return view('view-account', compact('user', 'activeBorrows'));
+            return view('view-account', compact('user', 'activeBorrows', 'borrowRequests'));
         } else {
 
             $message = "You cannot view another user's information!";
