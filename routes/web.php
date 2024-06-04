@@ -28,23 +28,34 @@ Route::get('/create-user', function () {
 
 Route::post('/store-book', [BookController::class, 'storebook']);
 Route::get('/add-book', function () {
-
-    return view('add-book');
+    if (auth()->user()->admin)
+        return view('add-book');
+    else
+        return redirect()->route('home')->with('failure', 'You do not have access to that page !');
 });
 Route::get('/search-genre', [GenreController::class, 'searchGenres']);
 Route::get('/add-author', function () {
 
-    return view('add-author');
+    if (auth()->user()->admin)
+        return view('add-author');
+    else
+        return redirect()->route('home')->with('failure', 'You do not have access to that page !');
 });
 Route::post('/store-author', [AuthorController::class, 'storeauthor']);
 Route::get('/add-publisher', function () {
 
-    return view('add-publisher');
+    if (auth()->user()->admin)
+        return view('add-publisher');
+    else
+        return redirect()->route('home')->with('failure', 'You do not have access to that page !');
 });
 Route::post('/store-publisher', [PublisherController::class, 'storepublisher']);
 Route::get('/add-genre', function () {
 
-    return view('add-genre');
+    if (auth()->user()->admin)
+        return view('add-genre');
+    else
+        return redirect()->route('home')->with('failure', 'You do not have access to that page !');
 });
 
 route::get('/book/{book_id}', [BookController::class, 'showsinglebook'])->name('book-card');

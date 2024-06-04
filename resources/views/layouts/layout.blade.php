@@ -89,6 +89,13 @@
                         logout
                     </span>
                 </a>
+                @if (auth()->user()->admin)
+                    <a href="/add-book">
+                        <span class="material-symbols-outlined me-4 fs-2">
+                            add_notes
+                        </span>
+                    </a>
+                @endif
             @else
                 <a href="/signup-login">
                     <span class="material-symbols-outlined me-4 fs-2">
