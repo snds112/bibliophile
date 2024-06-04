@@ -150,7 +150,7 @@
                         <span>Current : {{ $publisher->name }}</span>
                         <div class="form-group">
 
-                            <input type="text" class="form-control" name="publisher_id" id="publisher_id"
+                            <input type="text" class="form-control" name="publisher" id="publisher"
                                 placeholder="Enter new publisher or leave blank...">
                             <label for="publisher_id"></label>
                             <a href="/add-publisher" style="text-decoration: underline; color: black;">Add Publisher?</a>

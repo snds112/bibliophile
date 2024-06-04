@@ -147,9 +147,9 @@ class BookController extends Controller
                     'book_id' => $book->id
                 ]);
             }
-            if (!is_null($request->publisher_id)) {
+            if (!is_null($request->publisher)) {
 
-                $publisher = Publisher::where('name', $request->publisher_id)->get()->first();
+                $publisher = Publisher::where('name', $request->publisher)->get()->first();
 
                 $book->update(['publisher_id' => $publisher->id]);
             }
@@ -391,8 +391,8 @@ class BookController extends Controller
 
 
 
-        $publisher = Publisher::where('name', $validatedData['publisher'])->first()->get();
-        $publisher = $publisher[0];
+        $publisher = Publisher::where('name', $validatedData['publisher'])->get()->first();
+        
         $book = Book::create([
             'ISBN' => $validatedData['ISBN'],
             'title' =>            $validatedData['title'],

@@ -69,6 +69,7 @@
                                         $authors = $book->authors()->get();
 
                                         $publisher = $book->publisher;
+
                                         $genres = $book->genres;
                                     @endphp
                                     <div class="information-userinfo">
@@ -96,7 +97,8 @@
 
 
                                         <hr>
-                                        <h5>Publisher: <span> {{ $publisher->name }}
+                                        <h5>Publisher: <span><a href="/publisher/{{ $publisher->id }}" style="color: black">
+                                                    {{ $publisher->name }}</a>
                                             </span></h5>
 
 

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('cover_addr', 100);
             $table->integer('number_of_copies');
             $table->bigInteger('publisher_id')->unsigned();
-            $table->foreign('publisher_id')->references('id')->on('publishers')->onDelete('cascade');;
+            $table->foreign('publisher_id')->references('id')->on('publishers')->onDelete('set null');
             $table->timestamps();
         });
     }
