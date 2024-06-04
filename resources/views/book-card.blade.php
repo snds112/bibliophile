@@ -104,7 +104,8 @@
                                         <h5>Author(s):</h5>
 
                                         @foreach ($authors as $author)
-                                            <span> - {{ $author->fullname }}
+                                            <span> - <a href="/author/{{ $author->id }}"
+                                                    style="color: black">{{ $author->fullname }}</a>
                                             </span>
                                         @endforeach
                                         <hr>

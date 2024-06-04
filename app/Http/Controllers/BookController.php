@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 use App\Models\BorrowRequest;
 use Illuminate\Support\Carbon;
 
+use Illuminate\Support\Facades\File;
 use function PHPUnit\Framework\isNull;
 use function PHPUnit\Framework\isEmpty;
 use Dotenv\Exception\ValidationException;
@@ -96,6 +97,14 @@ class BookController extends Controller
     {
 
         $book = Book::find($request->id);
+
+
+        $filePath = $book->cover_addr;
+
+        if (File::exists(public_path($filePath))) {
+
+            File::delete(public_path($filePath));
+        }
         $book->delete();
         $message = "Book Deleted";
         return redirect('/')->with('success', $message);
@@ -103,7 +112,7 @@ class BookController extends Controller
     public function modifybook(Request $request)
     {
         $book = Book::find($request->bookid);
-
+        $user = User::find(auth()->user()->id);
 
         if ($book) {
 
@@ -144,6 +153,35 @@ class BookController extends Controller
 
                 $book->update(['publisher_id' => $publisher->id]);
             }
+
+            if (!is_null($request->file('cover')))
+                try {
+                    $uploadedMedia = $request->file('cover');
+
+                    $this->validateImageUpload($uploadedMedia);
+                    if ($uploadedMedia) {
+                        $filePath = $book->cover_addr;
+
+                        if (File::exists(public_path($filePath))) {
+
+                            File::delete(public_path($filePath));
+                        }
+                        $uploadedMediaName = $user->id . '-' . uniqid() . '.' . $uploadedMedia->getClientOriginalExtension();
+
+                        $storagePath = '/uploads/covers/';
+
+                        $uploadedMedia->storeAs('public' . $storagePath, $uploadedMediaName);
+                        $book->update([
+                            'cover_addr' =>  '/storage' . $storagePath . $uploadedMediaName,
+                        ]);
+                    }
+                } catch (ValidationException $e) {
+                    return back()->with('failure', $e->getMessage())->withInput($request->input());
+                }
+
+
+
+
 
 
             $genres = explode(",", $request->input("genres"));

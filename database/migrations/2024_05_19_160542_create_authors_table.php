@@ -15,6 +15,7 @@ return new class extends Migration
             $table->bigIncrements('id')->primary()->autoIncrement()->unique();
             $table->string("fullname", 255)->unique();
             $table->string("alias", 255)->unique();
+            $table->string("bio", 500)->nullable();
             $table->string('photo_addr', 100);
             $table->timestamps();
         });

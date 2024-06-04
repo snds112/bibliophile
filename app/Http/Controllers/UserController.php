@@ -59,6 +59,7 @@ class UserController extends Controller
     {
         User::find($request->id)->delete();
         $message = "User Deleted";
+        
         return redirect('/')->with('success', $message);
     }
     public function requestadmin(Request $request)

@@ -11,7 +11,7 @@
 
 
 @section('content')
-    <div class="container container-fluid" style="min-width: 100%">
+    <div class="container container-fluid" style="min-width: 90%">
 
 
 
@@ -20,7 +20,7 @@
             <div class="row main">
 
                 @if (isset($results[0][0]))
-                    <div class="col-2">
+                    <div class="col">
                         <div class="card" style="border: #896858; background-color: #896858">
 
                             <div class="card-body">
@@ -32,7 +32,7 @@
                 @endif
 
                 @if (!empty($results[1][0]))
-                    <div class="col-2">
+                    <div class="col">
                         <div class="card" style="border: #896858; background-color: #896858">
 
                             <div class="card-body">
@@ -44,7 +44,7 @@
                 @endif
 
                 @if (!empty($results[2][0]))
-                    <div class="col-2">
+                    <div class="col">
                         <div class="card" style="border: #896858; background-color: #896858">
 
                             <div class="card-body">
@@ -55,7 +55,7 @@
                     </div>
                 @endif
                 @if (!empty($results[3][0]))
-                    <div class="col-2">
+                    <div class="col">
                         <div class="card" style="border: #896858; background-color: #896858">
 
                             <div class="card-body">
@@ -66,7 +66,7 @@
                     </div>
                 @endif
                 @if (!empty($results[4][0]))
-                    <div class="col-2">
+                    <div class="col">
                         <div class="card" style="border: #896858; background-color: #896858">
 
                             <div class="card-body">
@@ -81,7 +81,7 @@
             @if (!empty($results))
                 <div class="row main mt-1">
                     @if (!empty($results[0][0]))
-                        <div class="col-2">
+                        <div class="col">
 
                             @foreach ($results[0] as $user)
                                 @if (isset($user))
@@ -113,7 +113,7 @@
                         </div>
                     @endif
                     @if (!empty($results[1][0]))
-                        <div class="col-2">
+                        <div class="col">
                             @foreach ($results[1] as $author)
                                 @if (isset($author))
                                     @php
@@ -154,7 +154,7 @@
 
                                                                 <div class="col-md-8">
                                                                     <div class="card-body">
-                                                                        <h3 class="card-title">{{ $book->title }}</h3>
+                                                                        <h5 class="card-title">{{ $book->title }}</h5>
                                                                         <hr>
 
                                                                         <p class="card-text">{{ $limiteddesc }}</p>
@@ -180,7 +180,7 @@
                         </div>
                     @endif
                     @if (!empty($results[2][0]))
-                        <div class="col-2">
+                        <div class="col">
                             @foreach ($results[2] as $publisher)
                                 @if (isset($publisher))
                                     @php
@@ -223,7 +223,7 @@
 
                                                                 <div class="col-md-8">
                                                                     <div class="card-body">
-                                                                        <h3 class="card-title">{{ $book->title }}</h3>
+                                                                        <h5 class="card-title">{{ $book->title }}</h5>
                                                                         <hr>
 
                                                                         <p class="card-text">{{ $limiteddesc }}</p>
@@ -249,7 +249,7 @@
                         </div>
                     @endif
                     @if (!empty($results[3][0]))
-                        <div class="col-2">
+                        <div class="col">
                             @foreach ($results[3] as $genre)
                                 @if (isset($genre))
                                     @php
@@ -291,7 +291,7 @@
 
                                                                 <div class="col-md-8">
                                                                     <div class="card-body">
-                                                                        <h3 class="card-title">{{ $book->title }}</h3>
+                                                                        <h5 class="card-title">{{ $book->title }}</h5>
                                                                         <hr>
 
                                                                         <p class="card-text">{{ $limiteddesc }}</p>
@@ -317,7 +317,7 @@
                         </div>
                     @endif
                     @if (!empty($results[4][0]))
-                        <div class="col-2">
+                        <div class="col">
                             @foreach ($results[4] as $book)
                                 @if (isset($book))
                                     @php
@@ -342,7 +342,7 @@
 
                                                     <div class="col-md-8">
                                                         <div class="card-body">
-                                                            <h3 class="card-title">{{ $book->title }}</h3>
+                                                            <h5 class="card-title">{{ $book->title }}</h5>
                                                             <hr>
 
                                                             <p class="card-text">{{ $limiteddesc }}</p>
