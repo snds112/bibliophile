@@ -10,3 +10,7 @@ a {
 .card {
     background-color: #efe9e6;
 }
+.col {
+    max-width: 25rem;
+    min-width: 15rem;
+}
