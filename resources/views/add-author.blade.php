@@ -32,6 +32,10 @@
                         <label for="alias">Alias:</label>
                         <input type="text" class="form-control" id="alias" name="alias">
                     </div>
+                    <div class="form-group">
+                        <label for="description">Biography:</label>
+                        <textarea class="form-control" id="biography" name="biography" rows="5"></textarea>
+                    </div>
                     <div class="form-group my-2" id="image-upload">
                         <label for="imageInput">Select Photo Of The Author:</label>
                         <input type="file" id="images" name="image">

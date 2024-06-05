@@ -166,7 +166,7 @@
                                                 <form action="/delete-book" method="post" id="deleteBook">
                                                     @csrf
 
-                                                    <input type="hidden" name="bookid" value="{{ $book->id }}">
+                                                    <input type="hidden" name="id" value="{{ $book->id }}">
                                                     <i class="material-symbols-outlined "
                                                         onclick="document.getElementById('deleteBook').submit()">delete</i>
                                                 </form>

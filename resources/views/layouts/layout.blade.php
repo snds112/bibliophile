@@ -71,25 +71,18 @@
                     $user = App\Models\User::find(auth()->user()->id);
                 }
             @endphp
-            @if (isset($user))
-                <a href="/account/{{ auth()->user()->username }}">
+            @if (isset($user) && !is_null($user))
+                <a href="/account/{{ $user->username }}">
                     <span class="material-symbols-outlined me-4 fs-2">account_circle</span>
                 </a>
-                @if ($user->artist_status)
-                    <a href="/message/{{ auth()->user()->id }}">
-                        <span class="material-symbols-outlined me-4 fs-2">chat</span>
-                    </a>
-                    <a href="/create-post">
-                        <span class="material-symbols-outlined me-4 fs-2">add</span>
-                    </a>
-                @endif
+
 
                 <a href="/logout">
                     <span class="material-symbols-outlined me-4 fs-2">
                         logout
                     </span>
                 </a>
-                @if (auth()->user()->admin)
+                @if ($user->admin)
                     <a href="/add-book">
                         <span class="material-symbols-outlined me-4 fs-2">
                             add_notes

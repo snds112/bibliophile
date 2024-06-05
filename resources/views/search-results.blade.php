@@ -21,7 +21,7 @@
 
         @if (!empty($results))
             <div class="row main mt-1">
-                @if (!empty($results[0][0]) && auth()->user()->admin)
+                @if (!empty($results[0][0]))
                     <div class="col mb-2">
                         <div class="card" style="border: #896858; background-color: #896858">
 

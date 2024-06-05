@@ -21,25 +21,9 @@ class UserController extends Controller
         $searchTerm  = strip_tags($searchTerm);
         $searchTerm = "%{$searchTerm}%";
         $users = User::where('username', 'like', "%{$searchTerm}%")->get();
-        $authors = Author::with('books')
-            ->where('fullname', 'like', $searchTerm)
-            ->whereHas('books', function ($query) {
-            })
-            ->get();
-
-
-
-        $publishers = Publisher::with('books')
-            ->where('name', 'like', $searchTerm)
-            ->whereHas('books', function ($query) {
-            })
-            ->get();
-
-        $genres = Genre::with('books')
-            ->where('name', 'like', $searchTerm)
-            ->whereHas('books', function ($query) {
-            })
-            ->get();
+        $authors = Author::where('fullname', 'like', "%{$searchTerm}%")->get();
+        $publishers = Publisher::where('name', 'like', "%{$searchTerm}%")->get();
+        $genres = Genre::where('name', 'like', "%{$searchTerm}%")->get();
         $books =  Book::where('title', 'like', "%{$searchTerm}%")->get();
 
         $results[] = $users;
@@ -59,7 +43,7 @@ class UserController extends Controller
     {
         User::find($request->id)->delete();
         $message = "User Deleted";
-        
+
         return redirect('/')->with('success', $message);
     }
     public function requestadmin(Request $request)

@@ -160,6 +160,8 @@ class AuthorController extends Controller
         $validatedData = $request->validate([
             'fullname' => 'required|string|unique:authors',
             'alias' => 'required|string|max:255',
+            'biography'
+            => 'required|string|max:500',
 
         ]);
 
@@ -198,6 +200,7 @@ class AuthorController extends Controller
         $author = Author::create([
             'fullname' => $validatedData['fullname'],
             'alias' => $validatedData['alias'],
+            'bio' => strip_tags($validatedData['biography']),
             'photo_addr'  => '/storage' . $storagePath . $uploadedMediaName,
 
         ]);
